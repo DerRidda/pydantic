@@ -652,7 +652,7 @@ def test_make_generic_validator(fields, result):
     assert validator.__qualname__ == 'testing_function'
     assert validator.__name__ == 'testing_function'
     # args: cls, v, values, field, config
-    assert validator('_cls_', '_v_', '_values_', '_field_', '_config_') == result
+    assert validator('_cls_', '_v_', '_values_', '_field_', '_config_', '_loc_') == result
 
 
 def test_make_generic_validator_kwargs():
@@ -661,7 +661,7 @@ def test_make_generic_validator_kwargs():
 
     validator = make_generic_validator(test_validator)
     assert validator.__name__ == 'test_validator'
-    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_') == 'values: _vs_, field: _f_, config: _c_'
+    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_', '_l_') == 'values: _vs_, field: _f_, config: _c_, loc: _l_'
 
 
 def test_make_generic_validator_invalid():
@@ -679,7 +679,7 @@ def test_make_generic_validator_cls_kwargs():
 
     validator = make_generic_validator(test_validator)
     assert validator.__name__ == 'test_validator'
-    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_') == 'values: _vs_, field: _f_, config: _c_'
+    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_', '_l_') == 'values: _vs_, field: _f_, config: _c_, loc: _l_'
 
 
 def test_make_generic_validator_cls_invalid():
