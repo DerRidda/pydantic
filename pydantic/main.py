@@ -838,6 +838,8 @@ def validate_model(  # noqa: C901 (ignore complexity)
                 names_used.add(field.name if using_name else field.alias)
 
         v_, errors_ = field.validate(value, values, loc=field.alias, cls=cls_)
+        if errors_:
+            v_, errors_ = field.error_handler(v_, errors_, field.alias, cls_)
         if isinstance(errors_, ErrorWrapper):
             errors.append(errors_)
         elif isinstance(errors_, list):

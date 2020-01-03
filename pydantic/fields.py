@@ -60,6 +60,7 @@ class FieldInfo(Representation):
         'alias',
         'title',
         'description',
+        'error_handler',
         'const',
         'gt',
         'ge',
@@ -79,6 +80,7 @@ class FieldInfo(Representation):
         self.alias = kwargs.pop('alias', None)
         self.title = kwargs.pop('title', None)
         self.description = kwargs.pop('description', None)
+        self.error_handler = kwargs.pop('error_handler', None)
         self.const = kwargs.pop('const', None)
         self.gt = kwargs.pop('gt', None)
         self.ge = kwargs.pop('ge', None)
@@ -99,6 +101,7 @@ def Field(
     alias: str = None,
     title: str = None,
     description: str = None,
+    error_handler: Callable = None, # fix type hin
     const: bool = None,
     gt: float = None,
     ge: float = None,
@@ -121,6 +124,8 @@ def Field(
     :param alias: the public name of the field
     :param title: can be any string, used in the schema
     :param description: can be any string, used in the schema
+    :param error_handler: callable that will be called in case of a validation error, can be used to recover values to
+      a default value
     :param const: this field is required and *must* take it's default value
     :param gt: only applies to numbers, requires the field to be "greater than". The schema
       will have an ``exclusiveMinimum`` validation keyword
@@ -145,6 +150,7 @@ def Field(
         alias=alias,
         title=title,
         description=description,
+        error_handler=error_handler,
         const=const,
         gt=gt,
         ge=ge,
@@ -199,6 +205,7 @@ class ModelField(Representation):
         'alias',
         'has_alias',
         'field_info',
+        'error_handler',
         'validate_always',
         'allow_none',
         'shape',
@@ -229,6 +236,7 @@ class ModelField(Representation):
         self.required: 'BoolUndefined' = required
         self.model_config = model_config
         self.field_info: FieldInfo = field_info or FieldInfo(default)
+        self.error_handler = self.field_info.error_handler or (lambda v, e, l, c: (v, e))
 
         self.allow_none: bool = False
         self.validate_always: bool = False
