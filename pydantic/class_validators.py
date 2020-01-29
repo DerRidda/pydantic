@@ -242,7 +242,7 @@ def make_generic_validator(validator: AnyCallable) -> 'ValidatorCallable':
     if first_arg == 'self':
         raise ConfigError(
             f'Invalid signature for validator {validator}: {sig}, "self" not permitted as first argument, '
-            f'should be: (cls, value, values, config, field), "values", "config" and "field" are all optional.'
+            f'should be: (cls, value, values, config, field, loc), "values", "config", "field" and "loc" are all optional.'
         )
     elif first_arg == 'cls':
         # assume the second argument is value
@@ -269,7 +269,7 @@ def _generic_validator_cls(validator: AnyCallable, sig: 'Signature', args: Set[s
     if not args.issubset(all_kwargs):
         raise ConfigError(
             f'Invalid signature for validator {validator}: {sig}, should be: '
-            f'(cls, value, values, config, field), "values", "config" and "field" are all optional.'
+            f'(cls, value, values, config, field, loc), "values", "config", "field" and "loc" are all optional.'
         )
 
     if has_kwargs:
@@ -322,7 +322,7 @@ def _generic_validator_basic(validator: AnyCallable, sig: 'Signature', args: Set
     if not args.issubset(all_kwargs):
         raise ConfigError(
             f'Invalid signature for validator {validator}: {sig}, should be: '
-            f'(value, values, config, field), "values", "config" and "field" are all optional.'
+            f'(value, values, config, field, loc), "values", "config", "field" and "loc" are all optional.'
         )
 
     if has_kwargs:
