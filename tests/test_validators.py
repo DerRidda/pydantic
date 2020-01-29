@@ -630,19 +630,36 @@ def test_pre_called_once():
         (['val', 'field'], '_v_,_field_'),
         (['val', 'config'], '_v_,_config_'),
         (['val', 'values'], '_v_,_values_'),
+        (['val', 'loc'], '_v_,_loc_'),
         (['val', 'field', 'config'], '_v_,_field_,_config_'),
         (['val', 'field', 'values'], '_v_,_field_,_values_'),
+        (['val', 'field', 'loc'], '_v_,_field_,_loc_'),
         (['val', 'config', 'values'], '_v_,_config_,_values_'),
+        (['val', 'config', 'loc'], '_v_,_config_,_loc_'),
+        (['val', 'values', 'loc'], '_v_,_values_,_loc_'),
+        (['val', 'values', 'config', 'loc'], '_v_,_values_,_config_,_loc_'),
+        (['val', 'field', 'config', 'loc'], '_v_,_field_,_config_,_loc_'),
+        (['val', 'field', 'values', 'loc'], '_v_,_field_,_values_,_loc_'),
         (['val', 'field', 'values', 'config'], '_v_,_field_,_values_,_config_'),
+        (['val', 'field', 'values', 'config', 'loc'], '_v_,_field_,_values_,_config_,_loc_'),
         (['cls', 'val'], '_cls_,_v_'),
         (['cls', 'foobar'], '_cls_,_v_'),
         (['cls', 'val', 'field'], '_cls_,_v_,_field_'),
         (['cls', 'val', 'config'], '_cls_,_v_,_config_'),
         (['cls', 'val', 'values'], '_cls_,_v_,_values_'),
+        (['cls', 'val', 'loc'], '_cls_,_v_,_loc_'),
         (['cls', 'val', 'field', 'config'], '_cls_,_v_,_field_,_config_'),
         (['cls', 'val', 'field', 'values'], '_cls_,_v_,_field_,_values_'),
+        (['cls', 'val', 'field', 'loc'], '_cls_,_v_,_field_,_loc_'),
         (['cls', 'val', 'config', 'values'], '_cls_,_v_,_config_,_values_'),
+        (['cls', 'val', 'config', 'loc'], '_cls_,_v_,_config_,_loc_'),
+        (['cls', 'val', 'values', 'loc'], '_cls_,_v_,_values_,_loc_'),
+        (['cls', 'val', 'values', 'config', 'loc'], '_cls_,_v_,_values_,_config_,_loc_'),
+        (['cls', 'val', 'field', 'config', 'loc'], '_cls_,_v_,_field_,_config_,_loc_'),
+        (['cls', 'val', 'field', 'values', 'loc'], '_cls_,_v_,_field_,_values_,_loc_'),
         (['cls', 'val', 'field', 'values', 'config'], '_cls_,_v_,_field_,_values_,_config_'),
+        (['cls', 'val', 'field', 'values', 'config', 'loc'], '_cls_,_v_,_field_,_values_,_config_,_loc_'),
+        (['cls', 'val', 'field', 'values', 'config', 'loc'], '_cls_,_v_,_field_,_values_,_config_,_loc_'),
     ],
 )
 def test_make_generic_validator(fields, result):
@@ -652,7 +669,7 @@ def test_make_generic_validator(fields, result):
     assert validator.__qualname__ == 'testing_function'
     assert validator.__name__ == 'testing_function'
     # args: cls, v, values, field, config
-    assert validator('_cls_', '_v_', '_values_', '_field_', '_config_') == result
+    assert validator('_cls_', '_v_', '_values_', '_field_', '_config_', '_loc_') == result
 
 
 def test_make_generic_validator_kwargs():
@@ -661,7 +678,7 @@ def test_make_generic_validator_kwargs():
 
     validator = make_generic_validator(test_validator)
     assert validator.__name__ == 'test_validator'
-    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_') == 'values: _vs_, field: _f_, config: _c_'
+    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_', '_l_') == 'values: _vs_, field: _f_, config: _c_, loc: _l_'
 
 
 def test_make_generic_validator_invalid():
@@ -679,7 +696,7 @@ def test_make_generic_validator_cls_kwargs():
 
     validator = make_generic_validator(test_validator)
     assert validator.__name__ == 'test_validator'
-    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_') == 'values: _vs_, field: _f_, config: _c_'
+    assert validator('_cls_', '_v_', '_vs_', '_f_', '_c_', '_l_') == 'values: _vs_, field: _f_, config: _c_, loc: _l_'
 
 
 def test_make_generic_validator_cls_invalid():
