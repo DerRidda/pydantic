@@ -687,7 +687,7 @@ def test_make_generic_validator_invalid():
 
     with pytest.raises(ConfigError) as exc_info:
         make_generic_validator(test_validator)
-    assert ': (v, foobar), should be: (value, values, config, field)' in str(exc_info.value)
+    assert ': (v, foobar), should be: (value, values, config, field, loc)' in str(exc_info.value)
 
 
 def test_make_generic_validator_cls_kwargs():
@@ -705,7 +705,7 @@ def test_make_generic_validator_cls_invalid():
 
     with pytest.raises(ConfigError) as exc_info:
         make_generic_validator(test_validator)
-    assert ': (cls, v, foobar), should be: (cls, value, values, config, field)' in str(exc_info.value)
+    assert ': (cls, v, foobar), should be: (cls, value, values, config, field, loc)' in str(exc_info.value)
 
 
 def test_make_generic_validator_self():
