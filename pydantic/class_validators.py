@@ -273,8 +273,9 @@ def _generic_validator_cls(validator: AnyCallable, sig: 'Signature', args: Set[s
         )
 
     if has_kwargs:
-        return lambda cls, v, values, field, config, loc: validator(cls, v, values=values, field=field, config=config,
-                                                                    loc=loc)
+        return lambda cls, v, values, field, config, loc: validator(
+            cls, v, values=values, field=field, config=config, loc=loc
+        )
     elif args == set():
         return lambda cls, v, values, field, config, loc: validator(cls, v)
     elif args == {'values'}:
@@ -307,8 +308,9 @@ def _generic_validator_cls(validator: AnyCallable, sig: 'Signature', args: Set[s
         return lambda cls, v, values, field, config, loc: validator(cls, v, config=config, loc=loc, field=field)
     else:
         # args == {'values', 'config', 'loc', 'field'}
-        return lambda cls, v, values, field, config, loc: validator(cls, v, values=values, config=config, loc=loc,
-                                                                    field=field)
+        return lambda cls, v, values, field, config, loc: validator(
+            cls, v, values=values, config=config, loc=loc, field=field
+        )
 
 
 def _generic_validator_basic(validator: AnyCallable, sig: 'Signature', args: Set[str]) -> 'ValidatorCallable':
@@ -324,8 +326,9 @@ def _generic_validator_basic(validator: AnyCallable, sig: 'Signature', args: Set
         )
 
     if has_kwargs:
-        return lambda cls, v, values, field, config, loc: validator(v, values=values, field=field, config=config,
-                                                                    loc=loc)
+        return lambda cls, v, values, field, config, loc: validator(
+            v, values=values, field=field, config=config, loc=loc
+        )
     elif args == set():
         return lambda cls, v, values, field, config, loc: validator(v)
     elif args == {'values'}:
@@ -358,8 +361,9 @@ def _generic_validator_basic(validator: AnyCallable, sig: 'Signature', args: Set
         return lambda cls, v, values, field, config, loc: validator(v, loc=loc, config=config, field=field)
     else:
         # args == {'loc', 'values', 'config', 'field'}
-        return lambda cls, v, values, field, config, loc: validator(v, loc=loc, values=values, config=config,
-                                                                    field=field)
+        return lambda cls, v, values, field, config, loc: validator(
+            v, loc=loc, values=values, config=config, field=field
+        )
 
 
 def gather_all_validators(type_: 'ModelOrDc') -> Dict[str, classmethod]:
