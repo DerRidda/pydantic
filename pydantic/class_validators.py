@@ -34,10 +34,10 @@ if TYPE_CHECKING:
     from inspect import Signature
 
     from .main import BaseConfig
-    from .fields import ModelField
+    from .fields import ModelField, LocStr
     from .types import ModelOrDc
 
-    ValidatorCallable = Callable[[Optional[ModelOrDc], Any, Dict[str, Any], ModelField, Type[BaseConfig]], Any]
+    ValidatorCallable = Callable[[Optional[ModelOrDc], Any, Dict[str, Any], ModelField, Type[BaseConfig], LocStr], Any]
     ValidatorsList = List[ValidatorCallable]
     ValidatorListDict = Dict[str, List[Validator]]
 
